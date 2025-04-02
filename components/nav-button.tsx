@@ -1,23 +1,39 @@
+"use client";
+
+import { LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
+
 import { cn } from "@/lib/utils";
-type Props = {
-  href: String;
-  label: String;
+import { buttonVariants } from "@/components/ui/button";
+
+interface NavButtonProps {
+  href: string;
+  label: string;
+  icon: LucideIcon;
   isActive?: boolean;
-};
-export const NavButton = ({ href, label, isActive }: Props) => {
+}
+
+export const NavButton = ({
+  href,
+  label,
+  icon: Icon,
+  isActive,
+}: NavButtonProps) => {
+  const pathname = usePathname();
+
   return (
-    <Button
-      asChild
-      size="sm"
-      variant="outline"
+    <Link
+      href={href}
       className={cn(
-        "w-full lg:w-auto justify-between font-normal hover:bg-white/20 hover:text-white border-none focus-visible:ring-offset-0 focus-visible:ring-transparent outline-none text-white focus:bg-white/30 transition",
-        isActive ? "bg-white/10 text-white" : "bg-transparent"
+        buttonVariants({ variant: "ghost" }),
+        "text-white hover:bg-white/20 hover:text-white transition-all duration-200",
+        isActive && "bg-white/20 text-white",
+        "flex items-center gap-x-2 px-4 py-2"
       )}
     >
-      <Link href={href}>{label}</Link>
-    </Button>
+      <Icon className="size-4" />
+      <span className="font-medium">{label}</span>
+    </Link>
   );
 };
