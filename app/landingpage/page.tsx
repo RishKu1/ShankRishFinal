@@ -28,6 +28,7 @@ import ChatBot from '@/components/ChatBot';
 
 export default function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isChatBotOpen, setIsChatBotOpen] = useState(false);
   const containerRef = useRef(null);
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
@@ -143,14 +144,14 @@ export default function LandingPage() {
   ];
 
   return (
-    <div ref={containerRef} className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-white text-[#2E2A47]'}`}>
+    <div ref={containerRef} className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30 text-[#2E2A47]'}`}>
       {/* Navigation Bar */}
       <motion.nav 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
         className={`w-full py-6 px-8 flex justify-between items-center fixed top-0 z-50 backdrop-blur-lg ${
-          isDarkMode ? 'bg-[#1a1a1a]/80' : 'bg-white/80'
+          isDarkMode ? 'bg-[#1a1a1a]/80' : 'bg-gradient-to-r from-purple-50/90 to-pink-50/90'
         }`}
       >
         <div className="flex items-center">
@@ -169,8 +170,8 @@ export default function LandingPage() {
             <button
               key={item.name}
               onClick={() => scrollToSection(item.ref)}
-              className={`text-sm font-medium hover:text-blue-600 transition-colors ${
-                isDarkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-600'
+              className={`text-sm font-medium hover:text-purple-600 transition-colors ${
+                isDarkMode ? 'text-gray-300 hover:text-purple-400' : 'text-gray-600'
               }`}
             >
               {item.name}
@@ -192,7 +193,7 @@ export default function LandingPage() {
             )}
           </button>
           <SignInButton mode="modal">
-            <button className="bg-blue-600 text-white px-6 py-2.5 rounded-full hover:bg-blue-700 transition-colors text-sm font-medium">
+            <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-6 py-2.5 rounded-full hover:from-purple-700 hover:to-pink-600 transition-all text-sm font-medium shadow-lg">
               Sign In
             </button>
           </SignInButton>
@@ -205,7 +206,7 @@ export default function LandingPage() {
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
       >
         <div className="absolute inset-0 z-0">
-          <div className={`absolute inset-0 ${isDarkMode ? 'bg-blue-900/20' : 'bg-blue-100/50'}`} />
+          <div className={`absolute inset-0 ${isDarkMode ? 'bg-purple-900/20' : 'bg-gradient-to-br from-purple-100/50 via-pink-100/30 to-orange-100/20'}`} />
           <motion.div
             animate={{
               scale: [1, 1.1, 1],
@@ -219,7 +220,7 @@ export default function LandingPage() {
             className="absolute inset-0 flex items-center justify-center"
           >
             <div className={`w-[800px] h-[800px] rounded-full ${
-              isDarkMode ? 'bg-blue-600/10' : 'bg-blue-200/50'
+              isDarkMode ? 'bg-purple-600/10' : 'bg-gradient-to-br from-purple-200/50 via-pink-200/30 to-orange-200/20'
             }`} />
           </motion.div>
         </div>
@@ -237,9 +238,9 @@ export default function LandingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="inline-flex items-center px-4 py-2 rounded-full bg-blue-600/10 text-blue-600 text-sm font-medium"
+                className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-600/10 to-pink-500/10 text-purple-600 text-sm font-medium"
               >
-                <span className="w-2 h-2 bg-blue-600 rounded-full mr-2 animate-pulse"></span>
+                <span className="w-2 h-2 bg-gradient-to-r from-purple-600 to-pink-500 rounded-full mr-2 animate-pulse"></span>
                 New: AI-Powered Financial Insights
               </motion.div>
               
@@ -249,8 +250,8 @@ export default function LandingPage() {
                     isDarkMode ? 'text-white' : 'text-[#2E2A47]'
                   }`}
                 >
-                  <span className="gradient-text text-glow">{typedText}</span>
-                  <span className="inline-block w-1 h-12 ml-1 bg-blue-600 animate-blink"></span>
+                  <span className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 bg-clip-text text-transparent">{typedText}</span>
+                  <span className="inline-block w-1 h-12 ml-1 bg-gradient-to-r from-purple-600 to-pink-500 animate-blink"></span>
                 </motion.h1>
                 
                 <motion.p 
@@ -273,15 +274,15 @@ export default function LandingPage() {
                 className="flex flex-col sm:flex-row gap-4"
               >
                 <SignInButton mode="modal">
-                  <button className="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-colors text-lg font-medium flex items-center">
+                  <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-full hover:from-purple-700 hover:to-pink-600 transition-all text-lg font-medium flex items-center shadow-lg">
                     Start Free Trial
                     <ArrowTrendingUpIcon className="ml-2 h-5 w-5" />
                   </button>
                 </SignInButton>
                 <button className={`px-8 py-4 rounded-full border-2 ${
                   isDarkMode 
-                    ? 'border-blue-400 text-blue-400 hover:bg-blue-400/10' 
-                    : 'border-blue-600 text-blue-600 hover:bg-blue-50'
+                    ? 'border-purple-400 text-purple-400 hover:bg-purple-400/10' 
+                    : 'border-purple-600 text-purple-600 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50'
                 } transition-colors text-lg font-medium flex items-center`}>
                   Watch Demo
                   <svg className="ml-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -293,10 +294,10 @@ export default function LandingPage() {
 
               <div className="grid grid-cols-2 gap-6 pt-8">
                 <div className={`p-4 rounded-xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50 to-pink-50'
                 } shadow-lg`}>
                   <div className="flex items-center mb-2">
-                    <ShieldCheckIcon className="h-5 w-5 text-blue-600 mr-2" />
+                    <ShieldCheckIcon className="h-5 w-5 text-purple-600 mr-2" />
                     <span className="font-medium">Bank-Level Security</span>
                   </div>
                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -304,10 +305,10 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className={`p-4 rounded-xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50 to-pink-50'
                 } shadow-lg`}>
                   <div className="flex items-center mb-2">
-                    <ChartBarIcon className="h-5 w-5 text-blue-600 mr-2" />
+                    <ChartBarIcon className="h-5 w-5 text-purple-600 mr-2" />
                     <span className="font-medium">Smart Analytics</span>
                   </div>
                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -325,7 +326,7 @@ export default function LandingPage() {
               className="relative"
             >
               <div className={`absolute inset-0 rounded-3xl ${
-                isDarkMode ? 'bg-blue-600/20' : 'bg-blue-100'
+                isDarkMode ? 'bg-purple-600/20' : 'bg-gradient-to-br from-purple-100 via-pink-100 to-orange-100'
               } blur-3xl`} />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
@@ -348,7 +349,7 @@ export default function LandingPage() {
                   repeatType: "reverse"
                 }}
                 className={`absolute -bottom-6 -right-6 p-4 rounded-xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50 to-pink-50'
                 } shadow-lg`}
               >
                 <div className="flex items-center">
@@ -362,7 +363,7 @@ export default function LandingPage() {
       </motion.div>
 
       {/* Statistics Section */}
-      <section ref={statsRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
+      <section ref={statsRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20'}`}>
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -398,23 +399,25 @@ export default function LandingPage() {
               { 
                 number: "98%", 
                 label: "User Satisfaction",
-                description: "Based on verified user reviews"
+                description: "Consistently high user ratings"
               }
             ].map((stat, index) => (
               <motion.div
-                key={index}
-                whileHover={{ scale: 1.05 }}
-                className={`p-8 rounded-2xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                className={`text-center p-8 rounded-2xl ${
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80'
                 } shadow-lg`}
               >
-                <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">
+                <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-500 bg-clip-text text-transparent mb-2">
                   {stat.number}
-                </h2>
-                <p className={`text-xl font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-[#2E2A47]'}`}>
+                </div>
+                <div className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-[#2E2A47]'}`}>
                   {stat.label}
-                </p>
-                <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                </div>
+                <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                   {stat.description}
                 </p>
               </motion.div>
@@ -451,19 +454,19 @@ export default function LandingPage() {
                 className={`p-8 rounded-2xl ${
                   isDarkMode 
                     ? 'bg-[#2a2a2a] hover:bg-[#333333]' 
-                    : 'bg-blue-50 hover:bg-blue-100'
+                    : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80 hover:from-purple-100/80 hover:to-pink-100/80'
                 } transition-colors`}
               >
-                <feature.icon className="h-12 w-12 text-blue-600 mb-6" />
+                <feature.icon className="h-12 w-12 text-purple-600 mb-6" />
                 <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
                 <p className={`mb-4 ${isDarkMode ? 'text-gray-400' : 'text-[#7E8CA0]'}`}>
                   {feature.description}
                 </p>
-                <p className="text-blue-600 font-medium mb-6">{feature.stats}</p>
+                <p className="text-purple-600 font-medium mb-6">{feature.stats}</p>
                 <ul className="space-y-2">
                   {feature.details.map((detail, idx) => (
                     <li key={idx} className={`flex items-center ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                      <span className="w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                      <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                       {detail}
                     </li>
                   ))}
@@ -475,7 +478,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section ref={testimonialsRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
+      <section ref={testimonialsRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20'}`}>
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -499,12 +502,12 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className={`p-8 rounded-2xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80'
                 } shadow-lg`}
               >
                 <div className="flex items-center mb-6">
-                  <div className="h-12 w-12 rounded-full bg-blue-600/10 flex items-center justify-center">
-                    <UserCircleIcon className="h-8 w-8 text-blue-600" />
+                  <div className="h-12 w-12 rounded-full bg-purple-600/10 flex items-center justify-center">
+                    <UserCircleIcon className="h-8 w-8 text-purple-600" />
                   </div>
                   <div className="ml-4">
                     <h4 className="font-semibold">{testimonial.name}</h4>
@@ -599,15 +602,15 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className={`p-8 rounded-2xl ${
                   plan.popular
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-gradient-to-br from-purple-600 to-pink-500 text-white'
                     : isDarkMode
                     ? 'bg-[#2a2a2a]'
-                    : 'bg-white'
+                    : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80'
                 } shadow-lg relative`}
               >
                 {plan.popular && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                    <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                       Most Popular
                     </span>
                   </div>
@@ -629,8 +632,8 @@ export default function LandingPage() {
                 </ul>
                 <button className={`w-full py-3 rounded-full font-medium transition-colors ${
                   plan.popular
-                    ? 'bg-white text-blue-600 hover:bg-gray-100'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                    ? 'bg-white text-purple-600 hover:bg-gray-100'
+                    : 'bg-gradient-to-r from-purple-600 to-pink-500 text-white hover:from-purple-700 hover:to-pink-600'
                 }`}>
                   Get Started
                 </button>
@@ -641,7 +644,7 @@ export default function LandingPage() {
       </section>
 
       {/* Resources Section */}
-      <section ref={resourcesRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gray-50'}`}>
+      <section ref={resourcesRef} className={`py-20 ${isDarkMode ? 'bg-[#222222]' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20'}`}>
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -699,10 +702,10 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className={`p-8 rounded-2xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80'
                 } shadow-lg`}
               >
-                <resource.icon className="h-12 w-12 text-blue-600 mb-6" />
+                <resource.icon className="h-12 w-12 text-purple-600 mb-6" />
                 <h3 className="text-xl font-semibold mb-4">{resource.title}</h3>
                 <p className={`mb-6 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                   {resource.description}
@@ -710,7 +713,7 @@ export default function LandingPage() {
                 <ul className="space-y-3">
                   {resource.items.map((item, idx) => (
                     <li key={idx} className="flex items-center">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+                      <span className="w-2 h-2 bg-purple-600 rounded-full mr-2"></span>
                       {item}
                     </li>
                   ))}
@@ -767,7 +770,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className={`p-6 rounded-xl ${
-                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-white'
+                  isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50/80 to-pink-50/80'
                 } shadow-lg`}
               >
                 <h3 className={`text-lg font-semibold mb-2 ${isDarkMode ? 'text-white' : 'text-[#2E2A47]'}`}>
@@ -790,7 +793,7 @@ export default function LandingPage() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className={`text-center p-12 rounded-3xl ${
-              isDarkMode ? 'bg-[#2a2a2a]' : 'bg-blue-50'
+              isDarkMode ? 'bg-[#2a2a2a]' : 'bg-gradient-to-br from-purple-50/80 via-pink-50/60 to-orange-50/40'
             }`}
           >
             <h2 className={`text-4xl font-bold mb-6 ${isDarkMode ? 'text-white' : 'text-[#2E2A47]'}`}>
@@ -804,14 +807,14 @@ export default function LandingPage() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <SignInButton mode="modal">
-                <button className="bg-blue-600 text-white px-8 py-4 rounded-full hover:bg-blue-700 transition-colors text-lg font-medium">
+                <button className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-8 py-4 rounded-full hover:from-purple-700 hover:to-pink-600 transition-all text-lg font-medium">
                   Get Started Now
                 </button>
               </SignInButton>
               <button className={`px-8 py-4 rounded-full border-2 ${
                 isDarkMode 
-                  ? 'border-blue-400 text-blue-400 hover:bg-blue-400/10' 
-                  : 'border-blue-600 text-blue-600 hover:bg-blue-50'
+                  ? 'border-purple-400 text-purple-400 hover:bg-purple-400/10' 
+                  : 'border-purple-600 text-purple-600 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50'
               } transition-colors text-lg font-medium`}>
                 Schedule Demo
               </button>
@@ -821,7 +824,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className={`py-16 ${isDarkMode ? 'bg-[#1a1a1a] border-t border-gray-800' : 'bg-gray-50 border-t border-gray-200'}`}>
+      <footer className={`py-16 ${isDarkMode ? 'bg-[#1a1a1a] border-t border-gray-800' : 'bg-gradient-to-br from-slate-50 via-purple-50/20 to-pink-50/20 border-t border-gray-200'}`}>
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* Company Info */}
@@ -870,8 +873,8 @@ export default function LandingPage() {
               <ul className="space-y-3">
                 {['About Us', 'Features', 'Pricing', 'Blog', 'Careers', 'Contact'].map((link) => (
                   <li key={link}>
-                    <a href="#" className={`hover:text-blue-600 transition-colors ${
-                      isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600'
+                    <a href="#" className={`hover:text-purple-600 transition-colors ${
+                      isDarkMode ? 'text-gray-400 hover:text-purple-400' : 'text-gray-600'
                     }`}>
                       {link}
                     </a>
@@ -888,8 +891,8 @@ export default function LandingPage() {
               <ul className="space-y-3">
                 {['Help Center', 'Documentation', 'API Reference', 'Status', 'Terms of Service', 'Privacy Policy'].map((link) => (
                   <li key={link}>
-                    <a href="#" className={`hover:text-blue-600 transition-colors ${
-                      isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600'
+                    <a href="#" className={`hover:text-purple-600 transition-colors ${
+                      isDarkMode ? 'text-gray-400 hover:text-purple-400' : 'text-gray-600'
                     }`}>
                       {link}
                     </a>
@@ -905,19 +908,19 @@ export default function LandingPage() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start space-x-3">
-                  <EnvelopeIcon className="h-5 w-5 text-blue-600 mt-1" />
+                  <EnvelopeIcon className="h-5 w-5 text-purple-600 mt-1" />
                   <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     support@financeflow.com
                   </span>
                 </li>
                 <li className="flex items-start space-x-3">
-                  <PhoneIcon className="h-5 w-5 text-blue-600 mt-1" />
+                  <PhoneIcon className="h-5 w-5 text-purple-600 mt-1" />
                   <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     +1 (555) 123-4567
                   </span>
                 </li>
                 <li className="flex items-start space-x-3">
-                  <MapPinIcon className="h-5 w-5 text-blue-600 mt-1" />
+                  <MapPinIcon className="h-5 w-5 text-purple-600 mt-1" />
                   <span className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     123 Finance Street<br />
                     New York, NY 10001
@@ -936,18 +939,18 @@ export default function LandingPage() {
                 © {new Date().getFullYear()} FinanceFlow. All rights reserved.
               </p>
               <div className="flex space-x-6">
-                <a href="#" className={`text-sm hover:text-blue-600 transition-colors ${
-                  isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600'
+                <a href="#" className={`text-sm hover:text-purple-600 transition-colors ${
+                  isDarkMode ? 'text-gray-400 hover:text-purple-400' : 'text-gray-600'
                 }`}>
                   Terms of Service
                 </a>
-                <a href="#" className={`text-sm hover:text-blue-600 transition-colors ${
-                  isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600'
+                <a href="#" className={`text-sm hover:text-purple-600 transition-colors ${
+                  isDarkMode ? 'text-gray-400 hover:text-purple-400' : 'text-gray-600'
                 }`}>
                   Privacy Policy
                 </a>
-                <a href="#" className={`text-sm hover:text-blue-600 transition-colors ${
-                  isDarkMode ? 'text-gray-400 hover:text-blue-400' : 'text-gray-600'
+                <a href="#" className={`text-sm hover:text-purple-600 transition-colors ${
+                  isDarkMode ? 'text-gray-400 hover:text-purple-400' : 'text-gray-600'
                 }`}>
                   Cookie Policy
                 </a>
@@ -956,7 +959,7 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-      <ChatBot />
+      <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
     </div>
   );
 } 

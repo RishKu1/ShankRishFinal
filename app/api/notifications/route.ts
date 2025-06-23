@@ -10,6 +10,8 @@ const notificationSchema = z.object({
   title: z.string(),
   message: z.string(),
   transactionId: z.string().optional(),
+  beforeState: z.record(z.any()).optional(),
+  afterState: z.record(z.any()).optional(),
 });
 
 export async function POST(req: Request) {

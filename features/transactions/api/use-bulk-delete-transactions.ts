@@ -20,10 +20,20 @@ export const useBulkDeleteTransactions = () => {
       });
       return await response.json();
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success("Transactions deleted");
+      await fetch("/api/notifications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "info",
+          title: "Transactions Deleted",
+          message: `Multiple transactions were deleted from your account.`,
+        }),
+      });
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
       queryClient.invalidateQueries({ queryKey: ["summary"] });
+      queryClient.invalidateQueries({ queryKey: ["notifications"] });
     },
     onError: () => {
       toast.error("Failed to delete transactions");

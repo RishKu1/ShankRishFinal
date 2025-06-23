@@ -12,7 +12,9 @@ import {
   HelpCircle, 
   Bell,
   Menu,
-  ChevronDown
+  ChevronDown,
+  Sun,
+  Moon
 } from "lucide-react";
 
 import { Button } from "./ui/button";
@@ -25,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Separator } from "./ui/separator";
+import { useTheme } from "@/providers/theme-provider";
 
 const routes = [
   {
@@ -41,11 +44,6 @@ const routes = [
     href: "/accounts",
     label: "Accounts",
     icon: Wallet,
-  },
-  {
-    href: "/categories",
-    label: "Categories",
-    icon: Tags,
   },
   {
     href: "/settings",
@@ -72,6 +70,7 @@ export const Navigation = () => {
   const router = useRouter();
   const pathname = usePathname();
   const isMobile = useMedia("(max-width: 1024px)", false);
+  const { theme, toggleTheme } = useTheme();
 
   const onClick = (href: string) => {
     router.push(href);
@@ -115,6 +114,15 @@ export const Navigation = () => {
                 {action.label}
               </Button>
             ))}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="text-white hover:bg-white/20"
+            >
+              {theme === "fancy" ? <Sun className="size-4 mr-2" /> : <Moon className="size-4 mr-2" />}
+              Change Background
+            </Button>
           </nav>
         </SheetContent>
       </Sheet>
@@ -148,6 +156,15 @@ export const Navigation = () => {
             {action.label}
           </Button>
         ))}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleTheme}
+          className="text-white hover:bg-white/20"
+        >
+          {theme === "fancy" ? <Sun className="size-4 mr-2" /> : <Moon className="size-4 mr-2" />}
+          Change Background
+        </Button>
       </div>
     </nav>
   );
