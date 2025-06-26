@@ -5,6 +5,9 @@ export default authMiddleware({
   // Public routes that don't require authentication
   publicRoutes: ["/landingpage"],
   
+  // Add encryption key for secretKey middleware
+  secretKey: process.env.CLERK_SECRET_KEY,
+  
   // After sign in, redirect to the root route (dashboard)
   afterAuth(auth, req: NextRequest) {
     // Handle users who aren't authenticated

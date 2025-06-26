@@ -5,8 +5,14 @@ import { motion } from "framer-motion";
 import { Sparkles, TrendingUp, DollarSign, Calendar } from "lucide-react";
 import { useTheme } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
-export const WelcomeMsg = () => {
+interface WelcomeMsgProps {
+  onOpenAssistant?: () => void;
+  onDragStart?: (e: React.MouseEvent | React.TouchEvent) => void;
+}
+
+export const WelcomeMsg = ({ onOpenAssistant, onDragStart }: WelcomeMsgProps) => {
   const { user, isLoaded } = useUser();
   const { theme } = useTheme();
   
@@ -29,6 +35,20 @@ export const WelcomeMsg = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
+      {/* Assistant trigger icon */}
+      {onOpenAssistant && (
+        <Button
+          onClick={onOpenAssistant}
+          onMouseDown={onDragStart}
+          onTouchStart={onDragStart}
+          size="icon"
+          variant="ghost"
+          className="absolute top-4 right-4 z-20 bg-white/20 hover:bg-white/30 text-white shadow-lg backdrop-blur-md"
+          aria-label="Open Voice Assistant"
+        >
+          <Sparkles className="w-6 h-6" />
+        </Button>
+      )}
       {/* Animated background elements */}
       <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-30" />
       <motion.div

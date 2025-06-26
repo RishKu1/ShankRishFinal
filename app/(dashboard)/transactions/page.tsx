@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useState } from "react";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2, Plus, RefreshCcw } from "lucide-react";
 
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
 import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
@@ -15,12 +15,13 @@ import { transactions as transactionSchema } from "@/db/schema";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/data-table";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 import { columns } from "./colomns";
 import { UploadButton } from "./upload-button";
 import { ImportCard } from "./import-card";
 import { convertAmountToMiliunits } from "@/lib/utils";
+import { BankConnection } from '@/components/bank-connection';
 
 enum VARIANTS {
   LIST = "LIST",
@@ -37,6 +38,8 @@ const TransactionsPage = () => {
   const [AccountDialog, confirm] = useSelectAccount();
   const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+  const [isBankConnected, setIsBankConnected] = useState(false);
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
     console.log(results);
@@ -76,6 +79,24 @@ const TransactionsPage = () => {
         onCancelImport();
       },
     });
+  };
+
+  const handleSync = async () => {
+    setIsSyncing(true);
+    try {
+      const res = await fetch("/api/plaid/sync-transactions", { method: "POST" });
+      const data = await res.json();
+      if (data.success) {
+        toast.success(`Synced ${data.added} new transactions from Plaid.`);
+        transactionQuery.refetch();
+      } else {
+        toast.error(data.error || "Failed to sync transactions");
+      }
+    } catch (err) {
+      toast.error("Failed to sync transactions");
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
   if (transactionQuery.isLoading) {
@@ -140,6 +161,29 @@ const TransactionsPage = () => {
             }}
             disabled={isDisabled}
           />
+        </CardContent>
+      </Card>
+      <Card className="mt-8">
+        <CardHeader>
+          <CardTitle>Bank Account</CardTitle>
+          <CardDescription>
+            Connect your bank account to automatically sync transactions.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <BankConnection
+            isConnected={isBankConnected}
+            onConnectionChange={setIsBankConnected}
+          />
+          <Button
+            className="mt-4"
+            onClick={handleSync}
+            disabled={isSyncing}
+            variant="default"
+          >
+            {isSyncing ? <Loader2 className="animate-spin mr-2 h-4 w-4" /> : <RefreshCcw className="mr-2 h-4 w-4" />}
+            {isSyncing ? "Syncing..." : "Sync Transactions"}
+          </Button>
         </CardContent>
       </Card>
     </div>

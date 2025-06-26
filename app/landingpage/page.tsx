@@ -27,7 +27,7 @@ import { useTypewriter } from '../hooks/useTypewriter';
 import ChatBot from '@/components/ChatBot';
 
 export default function LandingPage() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [isChatBotOpen, setIsChatBotOpen] = useState(false);
   const containerRef = useRef(null);
   const featuresRef = useRef(null);

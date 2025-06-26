@@ -11,7 +11,8 @@ import {
   Mail, 
   Moon, 
   Shield, 
-  User 
+  User,
+  Building2
 } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,9 +20,12 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import { BankConnection } from "@/components/bank-connection";
+import { useState } from "react";
 
 const SettingsPage = () => {
   const { user } = useUser();
+  const [isBankConnected, setIsBankConnected] = useState(false);
 
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">

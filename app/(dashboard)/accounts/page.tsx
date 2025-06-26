@@ -1,7 +1,7 @@
 "use client";
 
 import { Loader2, Plus, Wallet, Tags } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
@@ -35,6 +35,14 @@ const AccountsPage = () => {
 
   const isAccountsDisabled = accountsQuery.isLoading || deleteAccounts.isPending;
   const isCategoriesDisabled = categoriesQuery.isLoading || deleteCategories.isPending;
+
+  useEffect(() => {
+    const handler = (e: any) => {
+      if (e.detail && e.detail.tab) setActiveTab(e.detail.tab);
+    };
+    window.addEventListener('finzo-tab-change', handler);
+    return () => window.removeEventListener('finzo-tab-change', handler);
+  }, []);
 
   if (accountsQuery.isLoading || categoriesQuery.isLoading) {
     return (

@@ -4,17 +4,12 @@ import { useSearchParams } from "next/navigation";
 import { client } from "@/lib/hono";
 import { convertAmountFromMiliunits } from "@/lib/utils";
 
-export const useGetTransactions = () => {
-  const params = useSearchParams();
-  const from = params.get("from") || "";
-  const to = params.get("to") || "";
-  const accountId = params.get("accountId") || "";
-
+export const useGetTransactions = ({ accountId = "", categoryId = "", from = "", to = "" } = {}) => {
   const query = useQuery({
-    queryKey: ["transactions", { from, to, accountId }],
+    queryKey: ["transactions", { from, to, accountId, categoryId }],
     queryFn: async () => {
       const response = await client.api.transactions.$get({
-        query: { from, to, accountId },
+        query: { from, to, accountId, categoryId },
       });
       if (!response.ok) {
         throw new Error("Faild to fetch transactions");
