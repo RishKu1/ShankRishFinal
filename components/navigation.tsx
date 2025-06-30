@@ -59,11 +59,6 @@ const routes = [
 
 const quickActions = [
   {
-    label: "Help Center",
-    href: "/help",
-    icon: HelpCircle,
-  },
-  {
     label: "Notifications",
     href: "/notifications",
     icon: Bell,

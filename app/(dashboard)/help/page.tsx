@@ -105,7 +105,7 @@ const HelpPage = () => {
               <Button 
                 variant="outline" 
                 className="w-full"
-                onClick={() => window.location.href = 'tel:+6023489225'}
+                onClick={() => window.location.href = 'tel:+16023489225'}
               >
                 Call Now
               </Button>
