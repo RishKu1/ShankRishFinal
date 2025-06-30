@@ -2,7 +2,7 @@
 
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
-import { Loader2, Plus, RefreshCcw } from "lucide-react";
+import { Loader2, Plus, RefreshCcw, Printer } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
@@ -161,19 +161,29 @@ const TransactionsPage = () => {
               Add new
             </Button>
             <UploadButton onUpload={onUpload} />
+            <Button
+              size="sm"
+              onClick={() => window.print()}
+              className="w-full lg:w-auto"
+            >
+              <Printer className="size-4 mr-2" />
+              Print
+            </Button>
           </div>
         </CardHeader>
         <CardContent>
-          <DataTable
-            columns={columns}
-            data={transactions}
-            filterKey="payee"
-            onDelete={(row) => {
-              const ids = row.map((r) => r.original.id);
-              deleteTransactions.mutate({ ids });
-            }}
-            disabled={isDisabled}
-          />
+          <div id="printable-area">
+            <DataTable
+              columns={columns}
+              data={transactions}
+              filterKey="payee"
+              onDelete={(row) => {
+                const ids = row.map((r) => r.original.id);
+                deleteTransactions.mutate({ ids });
+              }}
+              disabled={isDisabled}
+            />
+          </div>
         </CardContent>
       </Card>
       <Card className="mt-8">
