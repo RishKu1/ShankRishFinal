@@ -40,7 +40,11 @@ export const BankConnection = ({ isConnected, onConnectionChange }: BankConnecti
         const result = await response.json();
         console.log('Token exchange successful:', result);
         
-        onConnectionChange(true);
+        // Refetch backend connection status
+        const statusRes = await fetch('/api/plaid/has-connected-bank');
+        const statusData = await statusRes.json();
+        onConnectionChange(!!statusData.connected);
+
         setIsConnecting(false);
         setLinkToken(null); // Clear the token after successful connection
         createNotification.mutate({
@@ -111,11 +115,25 @@ export const BankConnection = ({ isConnected, onConnectionChange }: BankConnecti
     }
   };
 
-  const handleDisconnect = () => {
-    onConnectionChange(false);
-    toast.success('Bank account disconnected', {
-      description: 'Your bank account has been disconnected.',
-    });
+  const handleDisconnect = async () => {
+    try {
+      const res = await fetch('/api/plaid/disconnect', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        onConnectionChange(false);
+        toast.success('Bank account disconnected', {
+          description: 'Your bank account has been disconnected.',
+        });
+      } else {
+        toast.error('Failed to disconnect bank account', {
+          description: data.error || 'Please try again later.',
+        });
+      }
+    } catch (error) {
+      toast.error('Failed to disconnect bank account', {
+        description: 'Please try again later.',
+      });
+    }
   };
 
   return (

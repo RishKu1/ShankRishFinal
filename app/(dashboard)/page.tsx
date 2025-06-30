@@ -18,7 +18,7 @@ export default function DashboardPage() {
         animate="visible"
         transition={{ duration: 0.5 }}
       >
-        <DataGrid />
+      <DataGrid />
       </motion.div>
       <motion.div
         variants={variants}
@@ -26,7 +26,7 @@ export default function DashboardPage() {
         animate="visible"
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <DataCharts />
+      <DataCharts />
       </motion.div>
     </div>
   );

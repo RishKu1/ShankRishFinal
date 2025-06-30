@@ -131,7 +131,7 @@ export const WelcomeMsg = ({ onOpenAssistant, onDragStart }: WelcomeMsgProps) =>
             <span className="text-sm">Daily Insights</span>
           </div>
         </motion.div>
-      </div>
+    </div>
     </motion.div>
   );
 };

@@ -32,6 +32,7 @@ import { useOpenTransaction } from '@/features/transactions/hooks/use-open-trans
 import { useEffect } from 'react';
 import { useUndoTransaction } from '@/features/transactions/api/use-undo-transaction';
 import { useCreateTransaction } from '@/features/transactions/api/use-create-transaction';
+import { useGetCategories } from "@/features/categories/api/use-get-categories";
 
 type Notification = {
   id: string;
@@ -57,6 +58,14 @@ const NotificationPage = () => {
   const transactionQuery = useGetTransaction(openTransactionId || undefined);
   const undoMutation = useUndoTransaction(openTransactionId || undefined);
   const createTransactionMutation = useCreateTransaction();
+  const categoryQuery = useGetCategories();
+  const categories = categoryQuery.data || [];
+
+  const getCategoryName = (id: string) => {
+    if (!id) return "";
+    const cat = categories.find((c) => c.id === id);
+    return cat ? cat.name : id;
+  };
 
   const getNotificationIcon = (type: string) => {
     switch (type) {
@@ -224,7 +233,7 @@ const NotificationPage = () => {
                       {getNotificationIcon(notification.type)}
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="font-semibold">{notification.title}</h4>
+                        <h4 className="font-semibold">{notification.title}</h4>
                           {notification.transactionId && (
                             <Button
                               variant="ghost"
@@ -304,6 +313,7 @@ const NotificationPage = () => {
                               const formatValue = (key: string, value: any) => {
                                 if (key === "date" && typeof value === "string" && value.length > 0) return format(new Date(value), "yyyy-MM-dd");
                                 if (key === "amount" && value !== undefined && value !== null) return `$${(Number(value) / 1000).toFixed(2)}`;
+                                if (key === "categoryId") return getCategoryName(value);
                                 return String(value ?? "");
                               };
                               return (
@@ -380,6 +390,7 @@ const NotificationPage = () => {
                                 const formatValue = (key: string, value: any) => {
                                   if (key === "date" && typeof value === "string" && value.length > 0) return format(new Date(value), "yyyy-MM-dd");
                                   if (key === "amount" && value !== undefined && value !== null) return `$${(Number(value) / 1000).toFixed(2)}`;
+                                  if (key === "categoryId") return getCategoryName(value);
                                   return String(value ?? "");
                                 };
                                 return (
@@ -452,6 +463,7 @@ const NotificationPage = () => {
                               const formatValue = (key: string, value: any) => {
                                 if (key === "date" && typeof value === "string" && value.length > 0) return format(new Date(value), "yyyy-MM-dd");
                                 if (key === "amount" && value !== undefined && value !== null) return `$${(Number(value) / 1000).toFixed(2)}`;
+                                if (key === "categoryId") return getCategoryName(value);
                                 return String(value ?? "");
                               };
                               return (

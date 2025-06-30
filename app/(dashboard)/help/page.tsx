@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { 
   Search, 
   MessageCircle, 
   Mail, 
   Phone, 
   ChevronDown, 
-  ChevronUp 
+  ChevronUp,
+  BookOpen
 } from "lucide-react";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,8 +21,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import ChatBot from "@/components/ChatBot";
 import { EmailForm } from "@/components/email-form";
+import FinzoChatContext from "@/components/finzo-chat-context";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import ChatBotGemini from '@/components/ChatBotGemini';
 
 const faqs = [
   {
@@ -52,8 +55,15 @@ const faqs = [
 
 const HelpPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isEmailOpen, setIsEmailOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const finzoContext = useContext(FinzoChatContext);
+
+  // Filtered FAQs
+  const filteredFaqs = faqs.filter(faq =>
+    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 -mt-24">
@@ -71,18 +81,6 @@ const HelpPage = () => {
 
         {/* Contact Options */}
         <div className="grid gap-4 md:grid-cols-3 mt-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Chat Support</CardTitle>
-              <MessageCircle className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Chat with our integrated ChatBot to learn about your finances today!
-              </p>
-              <Button className="w-full" onClick={() => setIsChatOpen(true)}>Start Chat</Button>
-            </CardContent>
-          </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Email Support</CardTitle>
@@ -113,13 +111,28 @@ const HelpPage = () => {
               </Button>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Live Chat Support</CardTitle>
+              <MessageCircle className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">
+                Chat with our AI assistant for instant help and answers to any question!
+              </p>
+              <Button className="w-full" onClick={() => setIsChatOpen(true)}>Start Chat</Button>
+            </CardContent>
+          </Card>
         </div>
 
         {/* FAQs */}
         <div>
           <h3 className="text-xl font-semibold mb-4 mt-4">Frequently Asked Questions</h3>
           <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
+            {filteredFaqs.length === 0 ? (
+              <div className="text-muted-foreground p-4">No FAQs found for "{searchQuery}".</div>
+            ) : (
+              filteredFaqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
                 <AccordionTrigger className="text-left">
                   {faq.question}
@@ -128,16 +141,19 @@ const HelpPage = () => {
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
-            ))}
+              ))
+            )}
           </Accordion>
         </div>
       </div>
 
-      {/* Chat Bot */}
-      <ChatBot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      {/* TODO: Integrate the Finzo chatbot from the overview section here when available */}
       
       {/* Email Form */}
       <EmailForm isOpen={isEmailOpen} onClose={() => setIsEmailOpen(false)} />
+
+      {/* Chat Bot */}
+      <ChatBotGemini isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 };

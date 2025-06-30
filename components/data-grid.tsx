@@ -45,34 +45,34 @@ export const DataGrid = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-2 mb-8">
       <motion.div custom={0} variants={cardVariants} initial="hidden" animate="visible">
-        <DataCard
-          title="Remaining"
-          value={data?.remainingAmount}
-          percentageChange={data?.remainingChange}
-          icon={FaPiggyBank}
-          variant="default"
-          dateRange={dateRangeLabel}
-        />
+      <DataCard
+        title="Remaining"
+        value={data?.remainingAmount}
+        percentageChange={data?.remainingChange}
+        icon={FaPiggyBank}
+        variant="default"
+        dateRange={dateRangeLabel}
+      />
       </motion.div>
       <motion.div custom={1} variants={cardVariants} initial="hidden" animate="visible">
-        <DataCard
-          title="Income"
-          value={data?.incomeAmount}
-          percentageChange={data?.incomeChange}
-          icon={FaArrowTrendUp}
+      <DataCard
+        title="Income"
+        value={data?.incomeAmount}
+        percentageChange={data?.incomeChange}
+        icon={FaArrowTrendUp}
           variant="success"
-          dateRange={dateRangeLabel}
-        />
+        dateRange={dateRangeLabel}
+      />
       </motion.div>
       <motion.div custom={2} variants={cardVariants} initial="hidden" animate="visible">
-        <DataCard
-          title="Expenses"
-          value={data?.expensesAmount}
-          percentageChange={data?.expensesChange}
-          icon={FaArrowTrendDown}
+      <DataCard
+        title="Expenses"
+        value={data?.expensesAmount}
+        percentageChange={data?.expensesChange}
+        icon={FaArrowTrendDown}
           variant="danger"
-          dateRange={dateRangeLabel}
-        />
+        dateRange={dateRangeLabel}
+      />
       </motion.div>
     </div>
   );

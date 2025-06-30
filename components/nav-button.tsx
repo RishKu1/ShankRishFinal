@@ -25,19 +25,19 @@ export const NavButton = ({
   const { theme } = useTheme();
 
   if (theme === "original") {
-    return (
-      <Link
-        href={href}
-        className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "text-white hover:bg-white/20 hover:text-white transition-all duration-200",
-          isActive && "bg-white/20 text-white",
-          "flex items-center gap-x-2 px-4 py-2"
-        )}
-      >
-        <Icon className="size-4" />
-        <span className="font-medium">{label}</span>
-      </Link>
+  return (
+    <Link
+      href={href}
+      className={cn(
+        buttonVariants({ variant: "ghost" }),
+        "text-white hover:bg-white/20 hover:text-white transition-all duration-200",
+        isActive && "bg-white/20 text-white",
+        "flex items-center gap-x-2 px-4 py-2"
+      )}
+    >
+      <Icon className="size-4" />
+      <span className="font-medium">{label}</span>
+    </Link>
     );
   }
 

@@ -67,11 +67,11 @@ export const EditAccountSheet = () => {
 
   const handleConfirmDelete = async () => {
     setShowDeleteDialog(false);
-    deleteMutation.mutate(undefined, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+      deleteMutation.mutate(undefined, {
+        onSuccess: () => {
+          onClose();
+        },
+      });
   };
 
   const defaultValues = accountQuery.data

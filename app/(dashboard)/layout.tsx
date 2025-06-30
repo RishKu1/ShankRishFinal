@@ -1,9 +1,11 @@
 "use client";
 
 import { Header } from "@/components/header";
-import React from "react";
+import React, { useState } from "react";
 import { ThemeProvider, useTheme } from "@/providers/theme-provider";
 import { motion, AnimatePresence } from "framer-motion";
+import VoiceAssistant from "@/components/voice-assistant";
+import FinzoChatContext from "@/components/finzo-chat-context";
 
 type Props = {
   children: React.ReactNode;
@@ -36,9 +38,16 @@ const ThemedLayout = ({ children }: Props) => {
 };
 
 const DashboardLayout = ({ children }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [position, setPosition] = useState({ top: typeof window !== 'undefined' ? window.innerHeight - 450 : 400, left: typeof window !== 'undefined' ? window.innerWidth - 420 : 800 });
   return (
     <ThemeProvider>
-      <ThemedLayout>{children}</ThemedLayout>
+      <FinzoChatContext.Provider value={{ isOpen, setIsOpen, position, setPosition }}>
+        <ThemedLayout>
+          {children}
+          <VoiceAssistant isOpen={isOpen} onClose={() => setIsOpen(false)} position={position} setPosition={setPosition} />
+        </ThemedLayout>
+      </FinzoChatContext.Provider>
     </ThemeProvider>
   );
 };

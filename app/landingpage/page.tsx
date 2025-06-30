@@ -3,7 +3,7 @@
 import { SignInButton } from "@clerk/nextjs";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { 
   MoonIcon, 
   SunIcon, 
@@ -24,11 +24,12 @@ import {
   CalculatorIcon
 } from "@heroicons/react/24/outline";
 import { useTypewriter } from '../hooks/useTypewriter';
-import ChatBot from '@/components/ChatBot';
+import VoiceAssistant from '@/components/voice-assistant';
 
 export default function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [isChatBotOpen, setIsChatBotOpen] = useState(false);
+  const [assistantPosition, setAssistantPosition] = useState({ top: 100, left: 0 });
   const containerRef = useRef(null);
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
@@ -142,6 +143,10 @@ export default function LandingPage() {
       company: "Digital Solutions"
     }
   ];
+
+  useEffect(() => {
+    setAssistantPosition(pos => ({ ...pos, left: typeof window !== 'undefined' ? window.innerWidth - 450 : 0 }));
+  }, []);
 
   return (
     <div ref={containerRef} className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-[#1a1a1a] text-white' : 'bg-gradient-to-br from-slate-50 via-purple-50/30 to-pink-50/30 text-[#2E2A47]'}`}>
@@ -959,7 +964,12 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-      <ChatBot isOpen={isChatBotOpen} onClose={() => setIsChatBotOpen(false)} />
+      <VoiceAssistant
+        isOpen={isChatBotOpen}
+        onClose={() => setIsChatBotOpen(false)}
+        position={assistantPosition}
+        setPosition={setAssistantPosition}
+      />
     </div>
   );
 } 

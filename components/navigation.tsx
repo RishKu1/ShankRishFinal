@@ -44,11 +44,6 @@ const routes = [
     href: "/accounts",
     label: "Accounts",
     icon: Wallet,
-  },
-  {
-    href: "/settings",
-    label: "Settings",
-    icon: Settings,
   }
 ];
 

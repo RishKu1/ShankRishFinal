@@ -67,11 +67,11 @@ export const EditCategorySheet = () => {
 
   const handleConfirmDelete = async () => {
     setShowDeleteDialog(false);
-    deleteMutation.mutate(undefined, {
-      onSuccess: () => {
-        onClose();
-      },
-    });
+      deleteMutation.mutate(undefined, {
+        onSuccess: () => {
+          onClose();
+        },
+      });
   };
 
   const defaultValues = categoryQuery.data

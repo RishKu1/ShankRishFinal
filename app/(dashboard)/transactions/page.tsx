@@ -1,8 +1,9 @@
 "use client";
 
 import { toast } from "sonner";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Loader2, Plus, RefreshCcw } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
 import { useGetTransactions } from "@/features/transactions/api/use-get-transactions";
@@ -40,6 +41,8 @@ const TransactionsPage = () => {
   const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
   const [isBankConnected, setIsBankConnected] = useState(false);
   const [isSyncing, setIsSyncing] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
     console.log(results);
@@ -89,6 +92,7 @@ const TransactionsPage = () => {
       if (data.success) {
         toast.success(`Synced ${data.added} new transactions from Plaid.`);
         transactionQuery.refetch();
+        queryClient.invalidateQueries({ queryKey: ["accounts"] });
       } else {
         toast.error(data.error || "Failed to sync transactions");
       }
@@ -98,6 +102,15 @@ const TransactionsPage = () => {
       setIsSyncing(false);
     }
   };
+
+  useEffect(() => {
+    // Check if user has a connected bank on mount
+    fetch("/api/plaid/has-connected-bank")
+      .then((res) => res.json())
+      .then((data) => {
+        setIsBankConnected(!!data.connected);
+      });
+  }, []);
 
   if (transactionQuery.isLoading) {
     return (
@@ -177,7 +190,13 @@ const TransactionsPage = () => {
           />
           <Button
             className="mt-4"
-            onClick={handleSync}
+            onClick={() => {
+              if (!isBankConnected) {
+                toast.error("Connect to bank to sync transactions!");
+                return;
+              }
+              handleSync();
+            }}
             disabled={isSyncing}
             variant="default"
           >

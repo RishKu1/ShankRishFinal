@@ -9,19 +9,24 @@ import { Filters } from "./filters";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/providers/theme-provider";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import VoiceAssistant from "./voice-assistant";
 import { Button } from "@/components/ui/button";
+import React from "react";
 
 export const Header = () => {
   const [isVoiceAssistantOpen, setIsVoiceAssistantOpen] = useState(false);
-  const [assistantPosition, setAssistantPosition] = useState({ top: 100, left: window.innerWidth - 450 });
+  const [assistantPosition, setAssistantPosition] = useState({ top: 100, left: 0 });
   const { theme } = useTheme();
   const pathname = usePathname();
   const isSettingsPage = pathname === "/settings";
   const isHelpPage = pathname === "/help";
   const isAccountsPage = pathname === "/accounts";
   const isNotificationsPage = pathname === "/notifications";
+
+  useEffect(() => {
+    setAssistantPosition(pos => ({ ...pos, left: window.innerWidth - 450 }));
+  }, []);
 
   return (
     <header
@@ -51,7 +56,7 @@ export const Header = () => {
             <Navigation />
           </div>
           <div className="flex items-center gap-x-2">
-            <ClerkLoaded>
+          <ClerkLoaded>
               <div className="relative group">
                 <div
                   className={cn(
@@ -61,40 +66,40 @@ export const Header = () => {
                       : "bg-gradient-to-r from-blue-600 to-blue-400"
                   )}
                 />
-                <UserButton
-                  afterSignOutUrl="/"
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-12 h-12",
+              <UserButton 
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    avatarBox: "w-12 h-12",
                       userButtonBox:
                         "hover:scale-105 transition-transform duration-200",
+                  },
+                }}
+                userProfileProps={{
+                  appearance: {
+                    elements: {
+                      rootBox: "shadow-xl",
+                      card: "shadow-xl",
                     },
-                  }}
-                  userProfileProps={{
-                    appearance: {
-                      elements: {
-                        rootBox: "shadow-xl",
-                        card: "shadow-xl",
-                      },
-                    },
-                  }}
-                />
-              </div>
-            </ClerkLoaded>
-            <ClerkLoading>
+                  },
+                }}
+              />
+            </div>
+          </ClerkLoaded>
+          <ClerkLoading>
               <Loader2 className="size-8 animate-spin text-white" />
-            </ClerkLoading>
+          </ClerkLoading>
           </div>
         </div>
         {!isSettingsPage &&
           !isHelpPage &&
           !isAccountsPage &&
           !isNotificationsPage && (
-            <>
+          <>
               <WelcomeMsg onOpenAssistant={() => setIsVoiceAssistantOpen(true)} onDragStart={e => setIsVoiceAssistantOpen(true)} />
-              <Filters />
-            </>
-          )}
+            <Filters />
+          </>
+        )}
         {isHelpPage && (
           <div className="text-center">
             <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)]">

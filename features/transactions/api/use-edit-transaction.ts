@@ -67,7 +67,7 @@ export const useEditTransaction = (id?: string) => {
       if (error.message === "No changes detected") {
         toast.info("No changes were made");
       } else {
-        toast.error("Failed to edit transaction");
+      toast.error("Failed to edit transaction");
       }
     },
   });

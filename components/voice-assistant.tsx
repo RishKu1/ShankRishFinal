@@ -51,7 +51,7 @@ const VoiceAssistant = ({ isOpen, onClose, position, setPosition }: VoiceAssista
     "What's the total spent on travel?",
     "How many transactions in groceries?",
     "What's my largest transaction?",
-    "Show all transactions in [account name]."
+    "Show all transactions in [category name]."
   ];
 
   const router = useRouter();
@@ -334,7 +334,7 @@ ${formatTxList(txs)}`;
             onMouseDown={handleDragStart}
             onTouchStart={handleDragStart}
           >
-            <h3 className="font-semibold text-lg flex items-center"><Bot className="mr-2"/> Finzo</h3>
+            <h3 className="font-semibold text-lg flex items-center"><Bot className="mr-2"/> Finzo Finance</h3>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" onClick={stopSpeaking} className="text-white hover:bg-white/20 cursor-pointer select-auto" aria-label="Stop talking">
                 <VolumeX className="size-4" />
