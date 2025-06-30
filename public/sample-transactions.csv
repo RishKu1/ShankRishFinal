@@ -1,0 +1,11 @@
+Date,Payee,Amount,Category,Notes,Account
+2024-06-01,Starbucks,-4.50,Coffee,Morning coffee,Checking
+2024-06-02,Amazon,-25.99,Shopping,Online order,Checking
+2024-06-03,Salary,2000.00,Income,Monthly salary,Checking
+2024-06-04,Whole Foods,-56.23,Grocery,Weekly groceries,Checking
+2024-06-05,Uber,-12.75,Transport,Ride to work,Checking
+2024-06-06,Netflix,-15.99,Entertainment,Subscription,Checking
+2024-06-07,Apple Store,-199.99,Electronics,New headphones,Checking
+2024-06-08,Shell,-40.00,Gas,Car fuel,Checking
+2024-06-09,Chipotle,-9.50,Food,Lunch,Checking
+2024-06-10,Doctor,-120.00,Health,Checkup,Checking 
